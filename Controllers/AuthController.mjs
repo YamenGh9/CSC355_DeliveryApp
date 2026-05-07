@@ -32,8 +32,7 @@ export const authController = {
   },
 
   logout: async (req, res) => {
-    await revokeToken(req);
-    res.setHeader("Set-Cookie", "token=; HttpOnly; Path=/; Max-Age=0");
+    await Customer.logout(req, res);
     res.writeHead(HTTP_STATUS.TEMP_REDIRECT, { Location: "/login" });
     res.end();
   },
