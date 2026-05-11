@@ -57,9 +57,9 @@ export const orderController = {
       if (!order) return errorController(HTTP_STATUS.NOT_FOUND, req, res); // sends 404 if the order doesn't exist
       const items = await repository.findItemsByOrderId(orderId); // fetches all items belonging to this order
       const orderItems = items.length
-        ? items.map(i => `<li>${i.itemName} — $${i.price}</li>`).join("") // builds the item list HTML
+        ? items.map(i => `<li>${i.itemName} × ${i.quantity} — $${(Number(i.price) * i.quantity).toFixed(2)}</li>`).join("") // builds the item list HTML
         : "<li class='empty'>No items in this order.</li>"; // fallback when the order has no items yet
-      const totalPrice = items.reduce((sum, i) => sum + Number(i.price), 0).toFixed(2); // sums item prices to two decimals
+      const totalPrice = items.reduce((sum, i) => sum + Number(i.price) * i.quantity, 0).toFixed(2); // sums item prices multiplied by quantity to two decimals
       await renderHTML(res, "Customer-OrderView.html", {
         orderId: order.orderId, // injected into {{orderId}} in the view
         orderStatus: order.status, // injected into {{orderStatus}} in the view

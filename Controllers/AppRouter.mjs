@@ -8,7 +8,7 @@ import { createRouter } from "./Router.mjs"; // factory function that creates a 
 const router = createRouter(); // creates a new Router instance with an empty routes table
 
 // Pages
-router.add("GET", "/", pageController.login); // unauthenticated root visit lands on login, not the protected home page
+router.add("GET", "/", pageController.landing); // unauthenticated root visit lands on landing page
 router.add("GET", "/login", pageController.login); // serves the login form
 router.add("GET", "/register", pageController.register); // serves the registration form
 router.add("GET", "/home", pageController.home); // serves the customer home page
